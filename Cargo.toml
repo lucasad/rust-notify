@@ -1,0 +1,11 @@
+[package]
+
+name = "notify"
+version = "0.1.0"
+authors = [ "Lucas Dohring <lucas@dohring.tk>" ]
+
+[lib]
+name = "notify"
+
+[[bin]]
+name = "notify"
