@@ -1,4 +1,9 @@
 language: rust
+env:
+    global:
+        - secure: lODScdM6QeNdDQQdGpXPquOyTrJgV2eNwHlqjBZuXftvCaLFMAbz9ySYlOa6xfeiSlQnJcdySc6xXzr/rBb7rkRVcATilZ+pguaXb/cc/pjI15jprRAjbuEgWbp1JDBXt7em0MlsmYJ6IfJwyyybLswKU+8fixEYyDddHbuheCg=
 install:
     - sudo apt-get install -qq libnotify-dev
-script: cargo build
+script: cargo build && cargo doc
+after_script:
+    - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
