@@ -21,14 +21,14 @@ fn main() {
     let blank = String::from_str("");
 
     let mut matches = getopts(args.tail(), opts).unwrap();
-    if matches.opt_present("h") {
+    if matches.opt_present("h") || (matches.free.len() < 1) {
         let brief = format!("Usage: {} [options] <summary> [description]", program);
         println!("{}", getopts::usage(brief.as_slice(), opts));
         return;
     }
 
-    let summary = matches.free.shift().unwrap();
-    let description = matches.free.shift().unwrap_or(blank.clone());
+    let summary = matches.free.remove(0).unwrap();
+    let description = matches.free.remove(0).unwrap_or(blank.clone());
     let icon = matches.opt_str("i").unwrap_or(blank.clone());
 
     notify::init(args[0].as_slice());
@@ -41,7 +41,7 @@ fn main() {
     match matches.opt_str("t") {
         Some(expires) => {
             let expires: i64 = from_str(expires.as_slice()).unwrap();
-            let expires = std::time::duration::Duration::milliseconds(expires);
+            let expires = Duration::milliseconds(expires);
             notification.set_timeout(expires);
         },
         None => ()

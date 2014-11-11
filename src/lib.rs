@@ -84,9 +84,9 @@ impl Notification {
     }
 
     pub fn set_timeout(&self, duration: std::time::duration::Duration) {
-        let seconds = duration.num_milliseconds();
+        let ms = duration.num_milliseconds();
         unsafe {
-            ffi::notify_notification_set_timeout(self.ptr, seconds);
+            ffi::notify_notification_set_timeout(self.ptr, ms);
         }
     }
 
